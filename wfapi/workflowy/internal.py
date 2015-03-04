@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import re, json
 
 __all__ = ["get_globals_from_home"]
 
@@ -11,7 +12,7 @@ SCRIPT_VAR_REGEX = re.compile("".join([
 re.escape("var "), "(.*?)", re.escape(" = "), "(.*?|\{.*?\})", re.escape(";"), '$',
 ]), re.DOTALL | re.MULTILINE)
 
-def get_globals_by_home(cls, content):
+def get_globals_from_home(content):
     for source in SCRIPT_TAG_REGEX.findall(content):
         if "(" in source:
             # function call found while parsing.
